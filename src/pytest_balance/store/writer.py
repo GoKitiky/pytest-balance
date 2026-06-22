@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 from pathlib import Path
 
@@ -43,6 +44,7 @@ def append_durations(path: Path, records: list[TestDuration]) -> None:
     else:
         # Atomic write for new files
         fd, tmp = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
+        os.fchmod(fd, 0o777)
         try:
             with open(fd, "w") as f:
                 f.write(new_lines)
