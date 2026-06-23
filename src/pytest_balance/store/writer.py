@@ -39,6 +39,7 @@ def append_durations(path: Path, records: list[TestDuration]) -> None:
     new_lines = "\n".join(_serialize(r) for r in records) + "\n"
 
     if path.exists():
+        os.chmod(path, 0o777)
         with open(path, "a") as f:
             f.write(new_lines)
     else:
